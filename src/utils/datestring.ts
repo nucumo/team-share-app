@@ -14,6 +14,14 @@ export const DateStringShort = (date: Date) => {
   });
 };
 
+// long date in format: e.g. March 2
+export const DateStringLong = (date: Date) => {
+  return date.toLocaleString("en-US", {
+    month: "long",
+    day: "numeric",
+  });
+};
+
 // show weekday in format: e.g. Mon
 export const DayStringShort = (date: Date) => {
   return date.toLocaleString("en-US", {
