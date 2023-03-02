@@ -8,6 +8,14 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-poppins), Apple Color Emoji", ...fontFamily.sans],
       },
+      aspectRatio: {
+        cover: "3 / 1",
+      },
+      boxShadow: {
+        sm: "0 2px 4px -1px rgba(0, 0, 0, 0.1)",
+        xl: "0 8px 32px -8px rgba(0, 0, 0, 0.2)",
+        card: "0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05)",
+      },
       colors: {
         gray: {
           50: "#F9FAFB",
