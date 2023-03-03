@@ -3,6 +3,7 @@ import { DailyFeed } from "@/components/DailyFeed/DailyFeed";
 import { CurrentUser } from "@/constants/members";
 import posts from "@/constants/posts";
 import { Post } from "@/types/Post";
+import { getDayFromToday } from "@/utils/datetime";
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -33,10 +34,13 @@ export default function Home() {
 
   const postsWithUserPost = postByUser ? [postByUser, ...posts] : posts;
 
+  // It's mock app so show only today and yesterday
+
   return (
     <>
       <div>
         <DailyFeed day={new Date()} posts={postsWithUserPost} />
+        <DailyFeed day={getDayFromToday(-1)} posts={postsWithUserPost} />
       </div>
       <DailyDialog isOpen={isOpen} onClose={onCloseDialog} onCreatePost={setPostByJSON} />
     </>
