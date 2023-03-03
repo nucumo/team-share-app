@@ -1,4 +1,5 @@
 import { Feeling } from "@/types/Feeling";
+import { motion } from "framer-motion";
 import { useState } from "react";
 
 interface Props {
@@ -41,10 +42,12 @@ export const FeelingChoices = ({ feelings, onChange, name }: Props) => {
   return (
     <div className="grid w-full grid-cols-5 gap-4">
       {feelings.map((feeling, i) => (
-        <label
+        <motion.label
           key={feeling.label}
           className={`cursor-pointer rounded-2xl border-2 px-4 py-8 text-center transition-colors 
         ${getColorStyles(feeling.id, selectedFeeling === i)}`}
+          whileHover={{ scale: 0.98 }}
+          whileTap={{ scale: 0.94 }}
         >
           <input
             onChange={handleChange}
@@ -55,7 +58,7 @@ export const FeelingChoices = ({ feelings, onChange, name }: Props) => {
           ></input>
           <div className="mb-4 text-5xl leading-none">{feeling.emoji}</div>
           <p className="text-sm font-semibold leading-none">{feeling.label}</p>
-        </label>
+        </motion.label>
       ))}
     </div>
   );

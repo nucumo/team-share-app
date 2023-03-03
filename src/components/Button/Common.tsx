@@ -1,4 +1,5 @@
 import { Icon, IconNameType } from "../Icon";
+import { motion } from "framer-motion";
 
 interface Props {
   children?: React.ReactNode;
@@ -27,7 +28,7 @@ export const CommonButton = ({
   type = "button",
 }: Props) => {
   return (
-    <button
+    <motion.button
       onClick={onClick}
       disabled={disabled}
       type={type}
@@ -35,9 +36,11 @@ export const CommonButton = ({
         focus:outline-none disabled:cursor-not-allowed disabled:opacity-40
         ${getColorStyles(priority)}
         `}
+      whileHover={{ scale: disabled ? 1 : 0.98 }}
+      whileTap={{ scale: disabled ? 1 : 0.95 }}
     >
       <span>{children}</span>
       {icon && <Icon name={icon} className={children ? "ml-2" : ""} />}
-    </button>
+    </motion.button>
   );
 };
