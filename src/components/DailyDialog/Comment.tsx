@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 interface Props {
-  onClickDone: () => void;
+  onClickDone: (data: string | undefined) => void;
   onClickBack: () => void;
 }
 
@@ -19,8 +19,8 @@ export const DailyDialogComment = ({ onClickDone, onClickBack }: Props) => {
   const { control, handleSubmit, formState } = useForm<Inputs>({
     resolver: zodResolver(schema),
   });
-  const onSubmit = () => {
-    onClickDone();
+  const onSubmit = (data: Inputs) => {
+    onClickDone(data.comment);
   };
 
   return (

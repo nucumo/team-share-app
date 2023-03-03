@@ -17,15 +17,17 @@ type Inputs = z.infer<typeof schema>;
 
 interface Props {
   onClickNext: () => void;
+  onChange: (data: number) => void;
 }
 
-export const DailyDialogFeeling = ({ onClickNext }: Props) => {
+export const DailyDialogFeeling = ({ onClickNext, onChange }: Props) => {
   const { control, handleSubmit, formState } = useForm<Inputs>({
     defaultValues: { feeling: -1 },
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = () => {
+  const onSubmit = (data: Inputs) => {
+    onChange(data.feeling);
     onClickNext();
   };
   return (

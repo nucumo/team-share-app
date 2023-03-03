@@ -8,6 +8,7 @@ import { z } from "zod";
 interface Props {
   onClickNext: () => void;
   onClickBack: () => void;
+  onChange: (data: string) => void;
 }
 
 const schema = z.object({
@@ -19,11 +20,12 @@ const schema = z.object({
 
 type Inputs = z.infer<typeof schema>;
 
-export const DailyDialogQuestion = ({ onClickNext, onClickBack }: Props) => {
+export const DailyDialogQuestion = ({ onClickNext, onClickBack, onChange }: Props) => {
   const { control, handleSubmit, formState } = useForm<Inputs>({
     resolver: zodResolver(schema),
   });
   const onSubmit = (data: Inputs) => {
+    onChange(data.answer);
     onClickNext();
   };
 
