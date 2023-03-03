@@ -6,13 +6,14 @@ import { DateStringRelative, DateStringShort, DayStringShort } from "@/utils/dat
 import events from "@/constants/events";
 import members from "@/constants/members";
 import { User } from "@/types/User";
-import posts from "@/constants/posts";
+import { Post } from "@/types/Post";
 
 interface Props {
   day: Date;
+  posts: Post[];
 }
 
-export const DailyFeed = ({ day }: Props) => {
+export const DailyFeed = ({ day, posts }: Props) => {
   const todayEvents = events.filter((event) => event.startAt.getDate() === day.getDate());
 
   const todayPosts = posts

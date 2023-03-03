@@ -9,6 +9,7 @@ import { useState } from "react";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  onCreatePost: (postJSON: string) => void;
 }
 interface FormDataType {
   feeling: number;
@@ -17,7 +18,7 @@ interface FormDataType {
   createdAt?: Date;
 }
 
-export const DailyDialog = ({ isOpen, onClose }: Props) => {
+export const DailyDialog = ({ isOpen, onClose, onCreatePost }: Props) => {
   const [[currentPage, direction], setCurrentPage] = useState([0, 1]);
   const [formData, setFormData] = useState<FormDataType>({
     feeling: 0,
@@ -45,6 +46,7 @@ export const DailyDialog = ({ isOpen, onClose }: Props) => {
     // Save the data to session storage
     const formJSON = JSON.stringify(newData);
     sessionStorage.setItem("dailyCheckIn", formJSON);
+    onCreatePost(formJSON);
     onClose();
   };
 
