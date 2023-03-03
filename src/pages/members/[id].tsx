@@ -15,6 +15,10 @@ export default function MemberView() {
   const member = members.filter((member) => member.id === id)[0];
   // posts that the member has written
   const memberPosts = posts.filter((post) => post.createdBy === id);
+  if (!member) {
+    return <div>Member not found</div>;
+  }
+
   return (
     <>
       <div className="aspect-cover w-full overflow-hidden rounded-3xl bg-gray-200">
