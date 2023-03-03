@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 interface Props {
   currentPage: number;
   totalPages: number;
@@ -9,7 +11,13 @@ export const DialogSteps = ({ currentPage, totalPages }: Props) => {
       {Array.from({ length: totalPages }).map((_, index) => {
         const bgStyle = index <= currentPage - 1 ? "bg-gray-400" : "bg-gray-200";
         const widthStyle = index === currentPage - 1 ? "w-4" : " w-2";
-        return <div key={index} className={`h-2 rounded-full ${bgStyle} ${widthStyle}`}></div>;
+        return (
+          <motion.div
+            key={index}
+            layoutId={`step-${index}`}
+            className={`h-2 rounded-full ${bgStyle} ${widthStyle}`}
+          ></motion.div>
+        );
       })}
     </div>
   );

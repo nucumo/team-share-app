@@ -5,18 +5,36 @@ import { DailyDialogComment } from "./Comment";
 import { DialogContainer } from "../Dialog/Container";
 import { DialogOverlay } from "../Dialog/Overlay";
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   onCreatePost: (postJSON: string) => void;
 }
+
 interface FormDataType {
   feeling: number;
   answer: string;
   comment?: string | undefined;
   createdAt?: Date;
 }
+
+const containerAnimationVariants = {
+  enter: (direction: number) => ({ x: direction > 0 ? "10%" : "-10%", opacity: 0 }),
+  center: {
+    x: 0,
+    opacity: 1,
+    transition: { x: { duration: 0.3, ease: "easeOut" }, opacity: { duration: 0.4 } },
+  },
+  exit: (direction: number) => {
+    return {
+      x: direction < 0 ? "10%" : "-10%",
+      opacity: 0,
+      transition: { x: { duration: 0.3, ease: "easeIn" }, opacity: { duration: 0.2 } },
+    };
+  },
+};
 
 export const DailyDialog = ({ isOpen, onClose, onCreatePost }: Props) => {
   const [[currentPage, direction], setCurrentPage] = useState([0, 1]);
@@ -80,9 +98,26 @@ export const DailyDialog = ({ isOpen, onClose, onCreatePost }: Props) => {
   return (
     <div>
       <DialogOverlay />
-      <DialogContainer currentPage={currentPage}>
-        <PageContent page={currentPage} />
-      </DialogContainer>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
+      >
+        <DialogContainer currentPage={currentPage}>
+          <AnimatePresence mode="wait" custom={direction} initial={false}>
+            <motion.div
+              key={currentPage}
+              initial="enter"
+              custom={direction}
+              variants={containerAnimationVariants}
+              animate="center"
+              exit="exit"
+            >
+              <PageContent page={currentPage} />
+            </motion.div>
+          </AnimatePresence>
+        </DialogContainer>
+      </motion.div>
     </div>
   );
 };
